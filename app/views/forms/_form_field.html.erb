@@ -5,26 +5,26 @@
   <h4 class="drag_handle"><%= field.kind.titleize %> <%= image_tag "dynamic_forms/arrow_move.png" %></h4>
   <%= f.hidden_field :sti_type %>
   <%= f.hidden_field :position, :class => 'field_position' %>
-  
+
   <div>
     <label>Label</label>
     <%= f.text_field :label %>
   </div>
-  
+
   <% if field.is_selector? %>
     <% field.form_field_options.build(:position => 1) if field.form_field_options.blank? %>
-    
+
     <p>Click on arrows and drag to re-order form fields.</p>
-    
+
     <div id="<%= options_id %>" class="form_field_options">
       <%= f.fields_for :form_field_options do |ffo| %>
         <%= render :partial => 'forms/form_field_option', :locals => {:f => ffo} %>
       <% end %>
-      
+
       <p><%= link_to_add_field_option("Add another option", f, :form_field_options) %></p>
     </div>
   <% end %>
-  
+
   <div class="validation">
     <% if field.allow_validation_of? :required %>
       <%= f.label :required, "Required?" %>&nbsp;
@@ -67,7 +67,7 @@
       <%= f.text_field :mime_types %>&nbsp;
       <span class="helper_text">Separate by comma (leave blank for default mime types)</span><br />
     <% end %>
-    
+
     <span class="remove_field_link">
       <%= link_to_remove_field "Remove Field", f %>
     </span>

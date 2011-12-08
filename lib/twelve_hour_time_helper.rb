@@ -5,28 +5,28 @@ module ActionView
         unless @options[:twelve_hour]
           return select_hour_without_twelve_hour_time
         end
-        
+
         if @options[:use_hidden] || @options[:discard_hour]
           build_hidden(:hour, hour)
         else
           build_twelve_hour_options_and_select(:hour, hour, :end => 23)
         end
       end
-      
+
       alias_method_chain :select_hour, :twelve_hour_time
-      
+
       private
-      
+
       def build_twelve_hour_options_and_select(type, selected, options = {})
         build_select(type, build_twelve_hour_options(selected, options))
       end
-      
+
       def build_twelve_hour_options(selected, options = {})
         start = options.delete(:start) || 0
         stop = options.delete(:end) || 59
         step = options.delete(:step) || 1
         leading_zeros = options.delete(:leading_zeros).nil? ? true : false
-        
+
         select_options = []
         start.step(stop, step) do |hour|
           ampm = hour <= 11 ? ' AM' : ' PM'
@@ -39,7 +39,7 @@ module ActionView
         end
         select_options.join("\n") + "\n"
       end
-      
+
     end
   end
 end
